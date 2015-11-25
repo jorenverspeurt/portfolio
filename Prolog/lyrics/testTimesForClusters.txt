@@ -1,0 +1,9 @@
+time((findall(F,single(F,S),Fs),clustered(FC,Fs,118),findall(E1-E2,member(cluster(E1,E2),FC),Cs))).
+% 1,201,270 inferences, 85.105 CPU in 85.136 seconds (100% CPU, 14115 Lips)
+
+time((findall(F,single(F,S),Fs),clustered(FC,Fs,120),findall(E1-E2,member(cluster(E1,E2),FC),Cs))).
+% 995,895 inferences, 69.302 CPU in 69.326 seconds (100% CPU, 14370 Lips)
+
+time((findall(F,single(F,S),Fs),clustered(FC,Fs,122),findall(E1-E2,member(cluster(E1,E2),FC),Cs))).
+% 783,197 inferences, 54.523 CPU in 54.543 seconds (100% CPU, 14364 Lips)
+

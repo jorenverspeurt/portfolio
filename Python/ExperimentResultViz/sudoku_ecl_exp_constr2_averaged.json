@@ -1,0 +1,93 @@
+{
+    "constr2-ave": {
+        "10305": {
+            "clue17": 0.002,
+            "clue18": 0.014,
+            "coloin": 0.018,
+            "eastermonster": 0.024,
+            "expert": 0.002,
+            "extra1": 0.005,
+            "extra2": 0.002,
+            "extra3": 0.002,
+            "extra4": 0.002,
+            "goldennugget": 0.017,
+            "hard17": 0.003,
+            "inkara2012": 0.017,
+            "lambda": 0.002,
+            "sudowiki_nb28": 0.008,
+            "sudowiki_nb49": 0.005,
+            "symme": 0.009,
+            "tarek_052": 0.017,
+            "verydifficult": 0.001
+        },
+        "12300": {
+            "clue17": 0.003,
+            "clue18": 0.003,
+            "coloin": 0.003,
+            "eastermonster": 0.002,
+            "expert": 0.003,
+            "extra1": 0.003,
+            "extra2": 0.003,
+            "extra3": 0.003,
+            "extra4": 0.004,
+            "goldennugget": 0.003,
+            "hard17": 0.004,
+            "inkara2012": 0.003,
+            "lambda": 0.004,
+            "sudowiki_nb28": 0.003,
+            "sudowiki_nb49": 0.002,
+            "symme": 0.003,
+            "tarek_052": 0.003,
+            "verydifficult": 0.003
+        },
+        "12345": {
+            "clue17": 0.002,
+            "clue18": 0.018,
+            "coloin": 0.005,
+            "eastermonster": 0.03,
+            "expert": 0.002,
+            "extra1": 0.006,
+            "extra2": 0.002,
+            "extra3": 0.002,
+            "extra4": 0.003,
+            "goldennugget": 0.018,
+            "hard17": 0.004,
+            "inkara2012": 0.021,
+            "lambda": 0.002,
+            "sudowiki_nb28": 0.01,
+            "sudowiki_nb49": 0.012,
+            "symme": 0.008,
+            "tarek_052": 0.021,
+            "verydifficult": 0.002
+        },
+        "30105": {
+            "clue17": 0.003,
+            "clue18": 0.011,
+            "coloin": 0.022,
+            "eastermonster": 0.007,
+            "expert": 0.002,
+            "extra1": 0.002,
+            "extra2": 0.002,
+            "extra3": 0.002,
+            "extra4": 0.002,
+            "goldennugget": 0.003,
+            "hard17": 0.003,
+            "inkara2012": 0.019,
+            "lambda": 0.002,
+            "sudowiki_nb28": 0.008,
+            "sudowiki_nb49": 0.004,
+            "symme": 0.007,
+            "tarek_052": 0.019,
+            "verydifficult": 0.002
+        }
+    },
+    "titles": {
+        "constr2-ave": "Comparison between different combinations of constraints"
+    },
+    "xlabels": {
+        "constr2-ave": "Puzzles"
+    },
+    "ylabels": {
+        "constr2-ave": "Time"
+    }
+}

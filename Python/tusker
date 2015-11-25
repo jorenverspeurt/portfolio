@@ -1,0 +1,244 @@
+#!/bin/env python
+import sys
+import os
+import json
+import glob
+from datetime import datetime
+import itertools
+
+def maybe(coll,index,default):
+    if len(coll)>index:
+        return coll[index]
+    else:
+        return default
+
+def deficientArguments():
+    print("If you could supply some (more) arguments, that would be great.")
+
+def command(num_args):
+    def wrap(f):
+        def wrapped(data, args):
+            if len(args)>=num_args:
+                f(data, args)
+            else:
+                deficientArguments()
+        return wrapped
+    return wrap
+
+#Commands
+@command(1)
+def init(data,args):
+    name = args[0]
+    data["projects"][name]= \
+            {"tasks":{}, "deadline":maybe(args,1,""), "note":""}
+    data["currentProject"] = name
+    if "NONE" in data["projects"].keys():
+        del data["projects"]["NONE"]
+
+@command(1)
+def project(data,args):
+    data["currentProject"] = args[0]
+
+def mkTask(description = "",priority = 0,time = 0,notes = [],completed = False):
+    return {"description":description,\
+            "priority":priority,\
+            "time":time,\
+            "notes":notes,\
+            "completed":completed}
+
+@command(1)
+def task(data,args):
+    curProj = data["currentProject"]
+    tasks = data["projects"][curProj]["tasks"]
+    name = args[0]
+    description = maybe(args,1,"")
+    priority = maybe(args,2,0)
+    if name in tasks:
+        print("A task by that name already exists")
+    else:
+        tasks[name] = mkTask(description,priority)
+
+@command(2)
+def subtask(data,args):
+    curProj = data["currentProject"]
+    tasks = data["projects"][curProj]["tasks"]
+    superName = args[0]
+    subName = args[1]
+    description = maybe(args,2,"")
+    priority = maybe(args,3,0)
+    if superName in tasks.keys():
+        tasks[superName][subName] = mkTask(description)
+    else:
+        print("No supertask by that name")
+
+@command(1)
+def record(data,args):
+    curProj = data["currentProject"]
+    tasks = data["projects"][curProj]["tasks"]
+    task = args[0]
+    if task in tasks.keys():
+        already = tasks[task]["time"]
+        now = timeit('input()',number=1)
+        newTime = already+now
+        tasks[task]["time"]=newTime
+    else:
+        print("No task by that name")
+
+@command(0)
+def isdone(data,args):
+    name = maybe(args,0,data["currentProject"])
+    if name in data["projects"]:
+        print(allComplete(data["projects"][name]))
+    elif findTask(data["projects"],name):
+        print(findTask(data["projects"],name)["completed"])
+    else:
+        print("No task by that name")
+
+def allComplete(project):
+    return all(task["completed"] for task in project["tasks"].values())
+
+def allTasks(projects):
+    return [taskTuple for project in projects.keys() \
+            for taskTuple in projects[project]["tasks"].items()]
+
+def findTask(projects,name):
+    return maybe([dat for (n,dat) in allTasks(projects) if n == name],0,None)
+
+@command(1)
+def done(data,args):
+    name = args[0]
+    tasks = data[data["currentProject"]]["tasks"]
+    if name in tasks.keys():
+        tasks[name]["completed"] = True
+    elif name in [n for task in tasks.values() for n in task.keys()]:
+        (sup,sub) = [(s,n) for s in tasks.values() \
+                           for n in tasks[s].keys() \
+                           if n == name]
+        tasks[sup][name]["completed"] = True
+    else:
+        print("No task by that name in the current project")
+
+@command(2)
+def modify(data,args):
+    "TODO: Make this work for subtasks as well!"
+    name = args[0]
+    curProj = data["currentProject"]
+    tasks = data["projects"][curProj]["tasks"]
+    currentDat = tasks[name]
+    sa = args[1]
+    try:
+        priority = int(sa)
+        description = maybe(args,2,currentDat["description"])
+    except ValueError:
+        description = sa
+        priority = currentDat["priority"]
+    time = currentDat["time"]
+    notes = currentDat["notes"]
+    completed = currentDat["completed"]
+    tasks[name] = mkTask(description,priority,time,notes,completed)
+
+@command(2)
+def note(data,args):
+    "TODO make work for subtasks"
+    name = args[0]
+    newNote = args[1]
+    tasks = data["projects"][data["currentProject"]]["tasks"]
+    if name in data["projects"].keys():
+        prevNotes = data["projects"][name]["notes"]
+        data["projects"][name]["notes"] = prevNotes+newNote
+    elif name in tasks.keys():
+        prevNotes = tasks[name]["notes"]
+        tasks[name]["notes"] = prevNotes + newNote
+    else:
+        print("No such task in current project")
+
+#@command(1)
+def remind(data,args):
+    print("Sorry, not implemented yet!")
+
+@command(0)
+def show(data,args):
+    name = maybe(args,0,data["currentProject"])
+    curProj = data["currentProject"]
+    curTasks = data["projects"][curProj]["tasks"]
+    if name in data["projects"]:
+        print(json.dumps(data["projects"][name],indent=2,sort_keys=True))
+    elif name in curTasks:
+        print(json.dumps(curTasks[name],indent=2,sort_keys=True))
+    else:
+        print("That's not a name I recognize")
+
+@command(1)
+def spent(data,args):
+    name = args[0]
+    curProj = data["currentProject"]
+    current = data["projects"][curProj]
+    if name in data["projects"].keys():
+        print(sum(task["time"] for task in data["projects"][name]["tasks"].values()))
+    elif name in current["tasks"].keys():
+        print(current["tasks"][name]["time"])
+    else:
+        print("That's not a name I recognize")
+
+@command(0)
+def next(data,args):
+    if len(args)>0:
+        name = args[0]
+        if name in data["projects"].keys():
+            project = data["projects"][name]
+        else:
+            print("That's not a name I recognize")
+    else:
+        project = data["projects"][data["currentProject"]]
+    mostImportant = highestPriority(project)
+    print(mostImportant)
+
+def highestPriority(project):
+    taskPrios={n:task["priority"] for (n,task) in project["tasks"].items()}
+    return max(taskPrios,key=(lambda key: taskPrios[key]))
+
+commands = {"init": init, "project": project, "task": task, "subtask": subtask, "record": record, "isdone":isdone, "done": done, "modify": modify, "note": note, "remind": remind, "show": show, "spent": spent}
+
+info = {"init": "(name [deadline]) Initialize project with name and deadline", \
+        "project": "(name) Switch to a named project as current project", \
+        "task": "(name [description] [priority]) Create task", \
+        "subtask": "(tname stname [description] [priority]) Create subtask", \
+        "record": "(tname) Record time for a task", \
+        "isdone": "(name) Print the completed state of a task/project", \
+        "done": "(tname) Mark a task as completed", \
+        "modify": "(name [description] [priority]) Modify a task's data", \
+        "note": "([name] note) Make a note regarding a project or task", \
+        "remind": "(text) Make a reminder for the current project", \
+        "show": "([pname]) List all info for the (current) project", \
+        "spent": "(name) List time spent on task/project"}
+
+store = glob.glob(os.path.expanduser('~/.tusker.json'))
+if not store:
+    home = os.path.expanduser('~/')
+    fw = open(home+'.tusker.json','w')
+    fw.write(json.dumps({
+        "currentProject": "NONE",
+        "projects": {
+            "NONE": {
+                "notes": [],
+                "tasks": {}
+            }
+        }
+    }))
+    fw.close()
+    store = glob.glob(os.path.expanduser('~/.tusker.json'))
+f = open(store[0],'r')
+data = json.loads(f.read())
+if len(sys.argv)>1:
+    command = sys.argv[1]
+    if command in commands.keys():
+        args = sys.argv[2:] if len(sys.argv)>2 else []
+        commands[command](data,args)
+    else:
+        print("That command didn't make a whole lot of sense. Try again")
+else:
+    for comm in ["Command "+key+": "+info[key] for key in commands.keys()]:
+        print(comm)
+f.close()
+f = open('/home/joren/.tusker.json','w')
+f.write(json.dumps(data,indent=2,sort_keys=True))

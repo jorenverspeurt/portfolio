@@ -1,0 +1,26 @@
+% distance compiled 0.00 sec, 1 clauses
+% testSingleTar compiled 0.00 sec, 53 clauses
+% testCorrTar compiled 0.07 sec, 2,705 clauses
+% 26,146 inferences, 0.137 CPU in 0.137 seconds (100% CPU, 190569 Lips)
+% 77,554 inferences, 0.380 CPU in 0.380 seconds (100% CPU, 203941 Lips)
+% 175,431 inferences, 1.275 CPU in 1.275 seconds (100% CPU, 137614 Lips)
+% 327,909 inferences, 3.205 CPU in 3.206 seconds (100% CPU, 102302 Lips)
+% testSingleLr2 compiled 0.00 sec, 53 clauses
+% testCorrLr2 compiled 0.04 sec, 2,705 clauses
+% 25,865 inferences, 0.116 CPU in 0.116 seconds (100% CPU, 223123 Lips)
+% 77,243 inferences, 0.375 CPU in 0.376 seconds (100% CPU, 205707 Lips)
+% 175,467 inferences, 1.261 CPU in 1.261 seconds (100% CPU, 139147 Lips)
+% 328,952 inferences, 3.201 CPU in 3.205 seconds (100% CPU, 102758 Lips)
+% testSingleLr9 compiled 0.00 sec, 53 clauses
+% testCorrLr9 compiled 0.04 sec, 2,705 clauses
+% 26,116 inferences, 0.118 CPU in 0.118 seconds (100% CPU, 221877 Lips)
+% 78,066 inferences, 0.383 CPU in 0.383 seconds (100% CPU, 203778 Lips)
+% 176,427 inferences, 1.239 CPU in 1.239 seconds (100% CPU, 142420 Lips)
+% 332,065 inferences, 3.333 CPU in 3.334 seconds (100% CPU, 99638 Lips)
+% testSingleZpaq compiled 0.00 sec, 53 clauses
+% testCorrZpaq compiled 0.04 sec, 2,705 clauses
+% 25,889 inferences, 0.115 CPU in 0.115 seconds (100% CPU, 225673 Lips)
+% 77,017 inferences, 0.367 CPU in 0.367 seconds (100% CPU, 209871 Lips)
+% 174,777 inferences, 1.193 CPU in 1.193 seconds (100% CPU, 146559 Lips)
+% 329,365 inferences, 3.157 CPU in 3.159 seconds (100% CPU, 104314 Lips)
+
