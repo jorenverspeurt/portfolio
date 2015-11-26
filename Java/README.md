@@ -7,4 +7,6 @@ For a course on Interface Design I made an app together with 2 other students. I
 The app is on the Play Store if you wish to try it.
 
 # Others
-I've written a great number of assignments in Java, but most of them I'd rather not show... The two I mentioned above are the only ones I contributed to during my Master's degree (that I could think of, there may be others) so I picked those.
+I've written a great number of assignments in Java, but most of them I'd rather not show... The two I mentioned above are the first ones I thought of that  I contributed to during my Master's degree so I picked those.
+I also wrote something for Distributed Systems and probably Networks in Java but I didn't bother adding those, the repositories that those things are in are a complete mess.
+Also for DSS but that was more about the design than the actual code, plus I probably couldn't explain the whole thing anymore anyway.
