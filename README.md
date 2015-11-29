@@ -1,2 +1,6 @@
 # portfolio
-A collection of little coding projects meant to illustrate the kinds of things I've worked on over the years
+A collection of little coding projects meant to illustrate the kinds of things I've worked on over the years. Explanations for all included files/folders is included in further README files.
+I've written many more things than are included here but for various reasons they're not included.
+I'm actively developing a game for my thesis project (you can find it in its own repo [here](http://github.com/jorenverspeurt/MatchBrain) and learn how you can contribute to my research [here](http://jorenverspeurt.github.io/MatchBrain). Big chunks of it were forked from somewhere else so most files will not be very representative of my style, but if you want to take a look anyway may I suggest the `signals` or the `ml` modules, those were written exclusively by me. The signals module is almost certainly overkill for the application but writing it was a very educational experience. Selected parts of that project may also be featured here in the future.
+There are also a bunch of languages that I'm learning as a hobby (notably Clojure, J, io and Rust) that aren't featured at all because I haven't written anything in those that performs any useful purpose whatsoever. Generally because my skills aren't yet developed enough, though there are other reasons.
+Python is the language I use when I just want to get small things done, so that folder contains 2 little things I wrote that weren't for a school project and that actually do something useful.
